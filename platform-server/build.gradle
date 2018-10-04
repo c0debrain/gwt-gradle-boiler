@@ -1,0 +1,35 @@
+//apply plugin: 'jetty'
+
+plugins {
+    id 'org.gretty' version '2.2.0'
+    //id "de.esoco.gwt" version "1.0.2"
+}
+
+description = ''
+
+gretty {
+  // supported values:
+  // 'jetty7', 'jetty8', 'jetty9', 'jetty9.3', 'jetty9.4', 'tomcat7', 'tomcat8'
+  servletContainer = 'tomcat8'
+  contextPath = '/'
+  httpPort = 8080
+  //extraResourceBase project(':platform-client').tasks.compileGwt.outputs
+  //extraResourceBase project(':platform-client').buildDir + "/gwt/out/"
+
+  webappCopy {
+    //from project(':platform-client').tasks.compileGwt.outputs
+  }
+
+  afterEvaluate {
+    prepareInplaceWebAppFolder.dependsOn copyAssets, war
+  }
+}
+
+war {
+  from project(':platform-client').tasks.compileGwt.outputs
+}
+
+task copyAssets(type: Copy) {
+    from project(':platform-client').buildDir.toString() + "/gwt/out/"
+    into webAppDir
+}

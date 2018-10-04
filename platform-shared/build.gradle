@@ -1,0 +1,20 @@
+description = ''
+
+sourceSets {
+    main {
+        java.srcDirs = ['src/main/java']
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier = 'sources'
+}
+
+configurations {
+ source
+}
+
+artifacts {
+ source sourcesJar
+}

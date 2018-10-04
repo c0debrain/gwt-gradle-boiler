@@ -1,0 +1,2 @@
+serviceClass: au.com.unohomeloans.GreetingService
+path: 2057638983B435F8D8B9407E2D43295E.gwt.rpc
